@@ -1,0 +1,60 @@
+# Ref: https://github.com/davidyeiser/docker-wordpress-theme-setup
+version: '3'
+
+networks:
+  frontend:
+  backend:
+
+services:
+  db:
+    container_name: my_mysql
+    image: mysql:5.7
+    networks:
+      - backend
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: somewordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+
+  wordpress:
+    depends_on:
+      - db
+    container_name: my_wordpress
+    image: wordpress:5.1.1-php7.3-apache
+    #image: sonuthestar/wp:v1.0
+    networks:
+      - frontend
+      - backend
+    ports:
+      - "8000:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+    working_dir: /var/www/html
+    volumes:
+      - ./wp-content:/var/www/html/wp-content
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+
+  redis:
+    depends_on:
+      - wordpress
+    image: redis:6
+    container_name: my_redis
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+    # launch Redis in cache mode with :
+    #  - max memory up to 50% of your RAM if needed (--maxmemory 512mb)
+    #  - deleting oldest data when max memory is reached (--maxmemory-policy allkeys-lru)
+    #entrypoint: redis-server --maxmemory 512mb -maxmemory-policy allkeys-lru
+
+volumes:
+  db_data:
