@@ -13,19 +13,16 @@ k apply -k ./ --namespace wp-dev
 
 Its got these files as mentioned below which will create and deploy mysqldb, wordpress and redis deployment, expose service along with PVC for mysql.
 
-tree
-.
-├── README.md
-├── configmap.yaml
-├── kustomization.yaml
-├── mysql-db-deployment.yaml
-├── mysql-pv-claim.yaml
-├── mysql-service.yaml
-├── redis-cache-deployment.yaml
-├── redis-service.yaml
-├── wp-app-deployment.yaml
-├── wp-pv-claim.yaml
-└── wp-service.yaml
+configmap.yaml
+kustomization.yaml
+mysql-db-deployment.yaml
+mysql-pv-claim.yaml
+mysql-service.yaml
+redis-cache-deployment.yaml
+redis-service.yaml
+wp-app-deployment.yaml
+wp-pv-claim.yaml
+wp-service.yaml
 
 
 Please refer to dockerfile and docker-compose.yaml to demonstrate the same as docker-compose command
