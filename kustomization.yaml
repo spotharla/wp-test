@@ -3,6 +3,11 @@ secretGenerator:
   literals:
   - password=cGFzc3dvcmQwMQo=
 resources:
-  - mysql-deployment.yaml
-  - wordpress-deployment.yaml
-  - redis-deployment.yaml
+  - mysql-db-deployment.yaml
+  - wp-app-deployment.yaml
+  - redis-cache-deployment.yaml
+  - redis-service.yaml
+  - mysql-service.yaml
+  - wp-service.yaml
+  - mysql-pv-claim.yaml
+  - wp-pv-claim.yaml

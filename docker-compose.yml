@@ -1,4 +1,3 @@
-# Ref: https://github.com/davidyeiser/docker-wordpress-theme-setup
 version: '3'
 
 networks:
@@ -15,10 +14,10 @@ services:
       - db_data:/var/lib/mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: somewordpress
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: wordpress
+      MYSQL_ROOT_PASSWORD: password01
+      MYSQL_DATABASE: wp-db
+      MYSQL_USER: wp-user
+      MYSQL_PASSWORD: password2020
 
   wordpress:
     depends_on:
@@ -34,8 +33,8 @@ services:
     restart: always
     environment:
       WORDPRESS_DB_HOST: db:3306
-      WORDPRESS_DB_USER: wordpress
-      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_USER: wp-user
+      WORDPRESS_DB_PASSWORD: password2020
     working_dir: /var/www/html
     volumes:
       - ./wp-content:/var/www/html/wp-content
